@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: ./redlock-web
+      dockerfile: Dockerfile
+    image: redlock-web-2.0
+    container_name: redlock-web-2.0
+    ports:
+      - "7077:80"
+    depends_on:
+      - mysql_db
+    environment:
+      MYSQL_HOST: redlock-db
+      MYSQL_DATABASE: Redlock
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./redlock-web/web:/var/www/html
+
+
+  mysql_db:
+    build:
+      context: ./redlock-database
+      dockerfile: Dockerfile
+    image: redlock-web-2.0-db
+    container_name: redlock-db
+    volumes:
+      - ./redlock-database/redlock-db.sql:/docker-entrypoint-initdb.d/redlock-db.sql
+
