@@ -17,8 +17,12 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
     volumes:
-      - ./redlock-web/web:/var/www/html
-
+      - type: volume
+        source: redlock-web-2.0
+        target: /var/www/html
+    command: apache2ctl -D FOREGROUND
+    links:
+      - mysql_db:mysql_db
 
   mysql_db:
     build:
@@ -28,4 +32,3 @@ services:
     container_name: redlock-db
     volumes:
       - ./redlock-database/redlock-db.sql:/docker-entrypoint-initdb.d/redlock-db.sql
-
