@@ -92,7 +92,6 @@
                             <td>" . $row["Jabatan"]. "</td>
                         </tr>";
                     }
-                    echo "<tr><td colspan='4'>Jumlah User: " . $result->num_rows . "</td></tr>";
                 } else {
                     echo "0 results";
                 }
